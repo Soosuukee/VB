@@ -7,18 +7,18 @@ import (
 type AggregatedStats struct {
 	gorm.Model
 
-	UserID uint
-	User   User `gorm:"constraint:OnDelete:CASCADE;"`
+	UserID uint `gorm:"not null" json:"user_id"`
+	User   User `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;" json:"user"`
 
-	GameID uint
-	Game   Game `gorm:"constraint:OnDelete:CASCADE;"`
+	GameID uint `gorm:"not null" json:"game_id"`
+	Game   Game `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;" json:"game"`
 
-	Season string `gorm:"size:50;not null"` // ex: "2025S1"
+	Season string `gorm:"size:50;not null" json:"season"` // Exemple : "2025S1"
 
-	TotalMatches int     `json:"total_matches"`
-	TotalKills   int     `json:"total_kills"`
-	TotalDamage  int     `json:"total_damage"`
-	AverageScore float64 `json:"average_score"`
-	WinRate      float64 `json:"win_rate"`   // en %
-	Top1Count    int     `json:"top1_count"` // ex: BR
+	TotalMatches int     `gorm:"default:0" json:"total_matches"`
+	TotalKills   int     `gorm:"default:0" json:"total_kills"`
+	TotalDamage  int     `gorm:"default:0" json:"total_damage"`
+	AverageScore float64 `gorm:"default:0" json:"average_score"`
+	WinRate      float64 `gorm:"default:0" json:"win_rate"`   // En pourcentage
+	Top1Count    int     `gorm:"default:0" json:"top1_count"` // Nombre de Top 1 (ex: en BR)
 }

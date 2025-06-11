@@ -7,17 +7,17 @@ import (
 type Game struct {
 	gorm.Model
 
-	Name           string   `gorm:"size:255;not null"`
-	Slug           string   `gorm:"size:255;not null;unique"`
-	Color          string   `gorm:"size:255;not null;unique"`
-	Type           string   `gorm:"size:50;not null"`
-	Icon           string   `gorm:"size:255;not null"`
-	Banner         string   `gorm:"size:255;not null"`
-	Heroes         string   `gorm:"size:255;not null"`
-	IsAvailable    bool     `gorm:"not null"`
-	AvailableModes []string `gorm:"type:json"` // PostgreSQL accepte JSON natif
-	Platforms      []string `gorm:"type:json"` // idem
+	Name           string   `gorm:"size:255;not null" json:"name"`
+	Slug           string   `gorm:"size:255;not null;unique" json:"slug"`
+	Color          string   `gorm:"size:255;not null;unique" json:"color"`
+	Type           string   `gorm:"size:50;not null" json:"type"`
+	Icon           string   `gorm:"size:255;not null" json:"icon"`
+	Banner         string   `gorm:"size:255;not null" json:"banner"`
+	Heroes         string   `gorm:"size:255;not null" json:"heroes"`
+	IsAvailable    bool     `gorm:"not null" json:"is_available"`
+	AvailableModes []string `gorm:"type:json" json:"available_modes"`
+	Platforms      []string `gorm:"type:json" json:"platforms"`
 
 	// Relations
-	Events []Event `gorm:"foreignKey:GameID"`
+	Events []Event `gorm:"foreignKey:GameID" json:"events,omitempty"`
 }

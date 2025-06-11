@@ -7,13 +7,13 @@ import (
 type ScoringRule struct {
 	gorm.Model
 
-	EventID uint
-	Event   Event `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
+	EventID uint  `json:"event_id"`
+	Event   Event `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;" json:"event"`
 
-	PhaseID *uint
-	Phase   *Phase `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
+	PhaseID *uint  `json:"phase_id,omitempty"`
+	Phase   *Phase `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"phase,omitempty"`
 
-	Type     string `gorm:"size:20;not null"` // Exemple : "placement", "kill"
-	Position int    `gorm:"not null"`         // Exemple : 1 = first place
-	Points   int    `gorm:"not null"`         // Exemple : 10 points for first
+	Type     string `gorm:"size:20;not null" json:"type"` // Exemple : "placement", "kill"
+	Position int    `gorm:"not null" json:"position"`     // Exemple : 1 = première place
+	Points   int    `gorm:"not null" json:"points"`       // Exemple : 10 points pour la première place
 }

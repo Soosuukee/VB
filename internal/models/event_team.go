@@ -6,15 +6,15 @@ type EventTeam struct {
 	gorm.Model
 
 	// Relations
-	TeamID uint
-	Team   Team `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
+	TeamID uint `gorm:"not null" json:"team_id"`
+	Team   Team `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;" json:"team"`
 
-	EventID uint
-	Event   Event `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
+	EventID uint  `gorm:"not null" json:"event_id"`
+	Event   Event `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;" json:"event"`
 
 	// Données
-	IsValidated *bool   `gorm:"not null" json:"is_validated"`
-	PointsTotal *int    `json:"points_total"`          // nullable
-	Ranking     *int    `json:"ranking"`               // nullable
-	Note        *string `gorm:"type:text" json:"note"` // nullable
+	IsValidated *bool   `gorm:"not null;default:false" json:"is_validated"` // Validation de participation
+	PointsTotal *int    `gorm:"default:0" json:"points_total,omitempty"`    // Total de points attribués à l'équipe
+	Ranking     *int    `json:"ranking,omitempty"`                          // Position globale
+	Note        *string `gorm:"type:text" json:"note,omitempty"`            // Commentaire éventuel
 }

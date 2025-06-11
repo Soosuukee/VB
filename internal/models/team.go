@@ -8,14 +8,15 @@ type Team struct {
 	Name  string `gorm:"size:255;not null" json:"name"`
 	Image string `gorm:"size:255;not null" json:"image"`
 
+	// Relations
 	EventParticipations []EventTeam        `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;" json:"event_participations"`
 	Phases              []Phase            `gorm:"many2many:phase_teams;" json:"phases"`
-	MatchParticipants   []MatchParticipant `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"match_game_participants"`
+	MatchParticipants   []MatchParticipant `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"match_participants"`
 	TeamMembers         []TeamMember       `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;" json:"team_members"`
 	Groups              []Group            `gorm:"many2many:group_teams;" json:"groups"`
 }
 
-// Méthode pour récupérer le capitaine
+// Méthode utilitaire pour récupérer le capitaine de l'équipe
 func (t *Team) GetCaptain() *User {
 	for _, member := range t.TeamMembers {
 		if member.IsCaptain != nil && *member.IsCaptain {
