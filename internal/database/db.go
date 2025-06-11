@@ -37,8 +37,22 @@ func Connect() {
 	DB = db
 	fmt.Println("✅ Connexion à PostgreSQL réussie")
 
-	// 👉 AutoMigrate à l'intérieur de Connect()
-	err = DB.AutoMigrate(&models.Game{}, &models.User{}, &models.Event{})
+	// 👉 AutoMigrate de toutes les entités utilisées
+	err = DB.AutoMigrate(
+		&models.User{},
+		&models.UserStats{},
+		&models.Team{},
+		&models.TeamMember{},
+		&models.Game{},
+		&models.Event{},
+		&models.EventUser{},
+		&models.EventTeam{},
+		&models.Phase{},
+		&models.Group{},
+		&models.Match{},
+		&models.MatchParticipant{},
+		&models.ScoringRule{},
+	)
 	if err != nil {
 		log.Fatal("❌ Erreur migration :", err)
 	}

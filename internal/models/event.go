@@ -28,8 +28,8 @@ type Event struct {
 	CreatedByID uint
 	CreatedBy   User `gorm:"constraint:OnUpdate:CASCADE,OnDelete:RESTRICT;"`
 
-	// ScoringRules []ScoringRule `gorm:"foreignKey:EventID"`
-	// Participants []EventTeam   `gorm:"foreignKey:EventID"`
-	// Phases       []Phase       `gorm:"foreignKey:EventID"`
-	// EventUsers   []EventUser   `gorm:"foreignKey:EventID"`
+	ScoringRules []ScoringRule `gorm:"foreignKey:EventID"`
+	Participants []EventTeam   `gorm:"foreignKey:EventID"`
+	Phases       []Phase       `gorm:"foreignKey:EventID"`
+	EventUsers   []EventUser   `gorm:"foreignKey:EventID"`
 }
